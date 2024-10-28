@@ -20,40 +20,49 @@ int main(void)
 	BUTTON_Init(porta, pin0);
 	
 	unsigned char counter = 0;
+	unsigned char while_counter = 0;
     while (1) 
     {
-		counter = 0;
-		
-		LED_Off(portc, pin0);
-		LED_Off(portc, pin1);
-		LED_Off(portc, pin2);
+		while_counter = 0;
 		
 		while(BUTTON_Read(porta, pin0))
 		{
-			_delay_ms(1000);
+			_delay_ms(500);
 			counter++;
 			
-			if(counter >= 5 && counter < 10)
+			if(counter == 1)
 			{
 				LED_On(portc, pin0);
 				LED_Off(portc, pin1);
 				LED_Off(portc, pin2);
 				//_delay_ms(3000);
 			}
-			else if(counter >= 10 && counter < 15)
+			else if(counter == 3)
 			{
 				LED_Off(portc, pin0);
 				LED_On(portc, pin1);
 				LED_Off(portc, pin2);
 				//_delay_ms(3000);
 			}
-			else if(counter >= 15)
+			else if(counter == 6)
 			{
 				LED_Off(portc, pin0);
 				LED_Off(portc, pin1);
 				LED_On(portc, pin2);
 				//_delay_ms(3000);
 			}
+		}
+	while(BUTTON_Read(porta, pin0) == 0)
+		{
+			_delay_ms(100);
+			while_counter++;
+			if(while_counter >= 20)
+				{
+					counter = 0;
+					LED_Off(portc, pin0);
+					LED_Off(portc, pin1);
+					LED_Off(portc, pin2);
+				}
 		}
     }
 }
