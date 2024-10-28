@@ -16,7 +16,7 @@ int main(void)
     /* Replace with your application code */
 	LED_Init(portc, pin0);
 	BUTTON_Init(porta, pin0);
-	
+	BUTTON_Enable_Internal_PullUp(porta, pin0);
     while (1) 
     {
 		if(!BUTTON_Read(porta, pin0))
