@@ -120,6 +120,15 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BUTTON_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="BUTTON_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="BUTTON_program.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Definitions.h">
       <SubType>compile</SubType>
     </Compile>
