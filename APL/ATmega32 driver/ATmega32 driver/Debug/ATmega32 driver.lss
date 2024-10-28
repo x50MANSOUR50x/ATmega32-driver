@@ -498,12 +498,12 @@ int main(void)
 	
     while (1) 
     {
-		if(BUTTON_Read(porta, pin0))
+		if(!BUTTON_Read(porta, pin0))
  31c:	60 e0       	ldi	r22, 0x00	; 0
  31e:	81 e4       	ldi	r24, 0x41	; 65
  320:	0e 94 3a 00 	call	0x74	; 0x74 <BUTTON_Read>
- 324:	88 23       	and	r24, r24
- 326:	b9 f0       	breq	.+46     	; 0x356 <main+0x4a>
+ 324:	81 11       	cpse	r24, r1
+ 326:	17 c0       	rjmp	.+46     	; 0x356 <main+0x4a>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
@@ -521,10 +521,10 @@ int main(void)
  338:	00 00       	nop
 		{
 			_delay_ms(500);
-			LED_On(portc, pin0);
+			LED_Off(portc, pin0);
  33a:	60 e0       	ldi	r22, 0x00	; 0
  33c:	83 e4       	ldi	r24, 0x43	; 67
- 33e:	0e 94 7e 01 	call	0x2fc	; 0x2fc <LED_On>
+ 33e:	0e 94 82 01 	call	0x304	; 0x304 <LED_Off>
  342:	2f ef       	ldi	r18, 0xFF	; 255
  344:	83 ed       	ldi	r24, 0xD3	; 211
  346:	90 e3       	ldi	r25, 0x30	; 48
@@ -539,10 +539,10 @@ int main(void)
 		}
 		else
 		{
-			LED_Off(portc, pin0);
+			LED_On(portc, pin0);
  356:	60 e0       	ldi	r22, 0x00	; 0
  358:	83 e4       	ldi	r24, 0x43	; 67
- 35a:	0e 94 82 01 	call	0x304	; 0x304 <LED_Off>
+ 35a:	0e 94 7e 01 	call	0x2fc	; 0x2fc <LED_On>
  35e:	de cf       	rjmp	.-68     	; 0x31c <main+0x10>
 
 00000360 <_exit>:

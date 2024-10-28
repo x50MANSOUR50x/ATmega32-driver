@@ -19,15 +19,15 @@ int main(void)
 	
     while (1) 
     {
-		if(BUTTON_Read(porta, pin0))
+		if(!BUTTON_Read(porta, pin0))
 		{
 			_delay_ms(500);
-			LED_On(portc, pin0);
+			LED_Off(portc, pin0);
 			_delay_ms(2000);
 		}
 		else
 		{
-			LED_Off(portc, pin0);
+			LED_On(portc, pin0);
 		}
     }
 }
