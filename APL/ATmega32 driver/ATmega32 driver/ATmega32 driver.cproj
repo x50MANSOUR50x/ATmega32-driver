@@ -120,6 +120,15 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="7SEGMENT_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="7SEGMENT_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="7SEGMENT_program.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="BUTTON_interface.h">
       <SubType>compile</SubType>
     </Compile>

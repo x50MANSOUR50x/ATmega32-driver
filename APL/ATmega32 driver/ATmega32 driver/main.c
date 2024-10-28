@@ -1,69 +1,72 @@
 /*
- * ATmega32driver(main).c
+ * 7segment.c
  *
- * Created: 27/10/2024 10:14:32
- * Author : Mansour
+ * Created: 26/10/2024 17:02:25
+ * Author : moham
  */ 
 
 #define F_CPU 8000000UL
-#include "util/delay.h"
 
-#include "LED_interface.h"
+#include "util/delay.h"
+#include "7SEGMENT_interface.h"
 #include "BUTTON_interface.h"
+#include "LED_interface.h"
 
 int main(void)
 {
     /* Replace with your application code */
-	LED_Init(portc, pin0); // Green
-	LED_Init(portc, pin1); // Yellow
-	LED_Init(portc, pin2); // Red
+	SEVEN_SEG_Init(portd);
+	SEVEN_SEG_Init(portc);
 	BUTTON_Init(porta, pin0);
-	
-	unsigned char counter = 0;
-	unsigned char while_counter = 0;
+	BUTTON_Init(portb, pin0);
+	LED_Init(portb, pin7);
+	unsigned char b1 = BUTTON_Read(porta, pin0);
+	unsigned char b2 = BUTTON_Read(portb, pin0);
+	unsigned char number1 = 0;
+	unsigned char number2 = 0;
+	unsigned char whole_number = 0;
+	unsigned char password = 25;
+	SEVEN_SEG_Write(portc, number1);
+	SEVEN_SEG_Write(portd, number2);
     while (1) 
     {
-		while_counter = 0;
-		
-		while(BUTTON_Read(porta, pin0))
+		LED_Off(portb, pin7);
+		b1 = BUTTON_Read(porta, pin0);
+		if(b1 == 1)
 		{
 			_delay_ms(500);
-			counter++;
-			
-			if(counter == 1)
+			number2++;
+			SEVEN_SEG_Write(portc, number2);
+			if(number2 >= 9)
 			{
-				LED_On(portc, pin0);
-				LED_Off(portc, pin1);
-				LED_Off(portc, pin2);
-				//_delay_ms(3000);
-			}
-			else if(counter == 3)
-			{
-				LED_Off(portc, pin0);
-				LED_On(portc, pin1);
-				LED_Off(portc, pin2);
-				//_delay_ms(3000);
-			}
-			else if(counter == 6)
-			{
-				LED_Off(portc, pin0);
-				LED_Off(portc, pin1);
-				LED_On(portc, pin2);
-				//_delay_ms(3000);
+				number2 = 0;
+				SEVEN_SEG_Write(portc, number2);
+				number1++;
+				SEVEN_SEG_Write(portd, number1);
 			}
 		}
-	while(BUTTON_Read(porta, pin0) == 0)
+		b2 = BUTTON_Read(portb, pin0);
+		if(b2 == 1)
 		{
-			_delay_ms(100);
-			while_counter++;
-			if(while_counter >= 20)
-				{
-					counter = 0;
-					LED_Off(portc, pin0);
-					LED_Off(portc, pin1);
-					LED_Off(portc, pin2);
-				}
+			whole_number = (number1 * 10) + number2;
+			if(whole_number == password)
+			{
+				LED_On(portb, pin7);
+				_delay_ms(3000);
+			}
 		}
-    }
+
+	}
 }
 
+/*
+		for(int number1=0; number1<=9; number1++)
+		{
+			SEVEN_SEG_Write(portd, number1);
+			for(int number2=0; number2<=9; number2++)
+			{
+				SEVEN_SEG_Write(portc, number2);
+				_delay_ms(1000);
+			}
+		}
+*/

@@ -18,7 +18,7 @@ CA -> common anode
 CC -> common cathode
 */
 
-#ifndef 7SEGMENT_CONFIG_H_
-#define 7SEGMENT_CONFIG_H_
+#ifndef SEVEN_SEG_CONFIG_H_
+#define SEVEN_SEG_CONFIG_H_
 #define CC
-#endif /* 7SEGMENT_CONFIG_H_ */ 
+#endif /* SEVEN_SEG_CONFIG_H_ */ 

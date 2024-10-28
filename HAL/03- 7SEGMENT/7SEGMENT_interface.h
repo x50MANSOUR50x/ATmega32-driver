@@ -12,8 +12,8 @@
 /*                                                                                            */
 /**********************************************************************************************/
 
-#ifndef 7SEGMENT_INTERFACE_H_
-#define 7SEGMENT_INTERFACE_H_
+#ifndef SEVEN_SEG_INTERFACE_H_
+#define SEVEN_SEG_INTERFACE_H_
 
 void SEVEN_SEG_Init(unsigned char port);
 void SEVEN_SEG_Write(unsigned char port,unsigned char value);
@@ -24,4 +24,4 @@ void SEVEN_SEG_Blink(unsigned char port);
 #define portc   'C'
 #define portd   'D'
 
-#endif /* 7SEGMENT_INTERFACE_H_ */ 
+#endif /* SEVEN_SEG_INTERFACE_H_ */ 
