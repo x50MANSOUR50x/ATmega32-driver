@@ -44,6 +44,27 @@ void SEVEN_SEG_Init(unsigned char port)
 {
 	DIO_SetPortDir(port,0xff);
 }
+											              // 0 for the first 4 pins and 1 for the last 4 pins
+void BCD_to_SEVEN_SEG_Init(unsigned char port, unsigned char half)
+{
+
+	if(half == 0)
+	{
+		DIO_SetPinDir(port, pin0, OUTPUT);
+		DIO_SetPinDir(port, pin1, OUTPUT);
+		DIO_SetPinDir(port, pin2, OUTPUT);
+		DIO_SetPinDir(port, pin3, OUTPUT);
+	}
+	else if(half == 1)
+	{
+		DIO_SetPinDir(port, pin4, OUTPUT);
+		DIO_SetPinDir(port, pin5, OUTPUT);
+		DIO_SetPinDir(port, pin6, OUTPUT);
+		DIO_SetPinDir(port, pin7, OUTPUT);
+	}
+	
+}
+
 void SEVEN_SEG_Write(unsigned char port,unsigned char value)  
 {
 	#if defined CC
@@ -65,4 +86,144 @@ void SEVEN_SEG_Blink(unsigned char port)
 		#if defined CA
 		DIO_WritePort(port,~0x08);
 		#endif
+}
+
+void BCD_to_SEVEN_SEG_Write(unsigned char port, unsigned char half, unsigned char value)
+{
+	if(half == 0)
+	{
+		switch (value)
+		{
+		case 0:
+			DIO_WritePin(port, pin0, 0);
+			DIO_WritePin(port, pin1, 0);
+			DIO_WritePin(port, pin2, 0);
+			DIO_WritePin(port, pin3, 0);
+			break;
+		case 1:
+			DIO_WritePin(port, pin0, 1);
+			DIO_WritePin(port, pin1, 0);
+			DIO_WritePin(port, pin2, 0);
+			DIO_WritePin(port, pin3, 0);
+			break;
+		case 2:
+			DIO_WritePin(port, pin0, 0);
+			DIO_WritePin(port, pin1, 1);
+			DIO_WritePin(port, pin2, 0);
+			DIO_WritePin(port, pin3, 0);
+			break;
+		case 3:
+			DIO_WritePin(port, pin0, 1);
+			DIO_WritePin(port, pin1, 1);
+			DIO_WritePin(port, pin2, 0);
+			DIO_WritePin(port, pin3, 0);
+			break;
+		case 4:
+			DIO_WritePin(port, pin0, 0);
+			DIO_WritePin(port, pin1, 0);
+			DIO_WritePin(port, pin2, 1);
+			DIO_WritePin(port, pin3, 0);
+			break;
+		case 5:
+			DIO_WritePin(port, pin0, 1);
+			DIO_WritePin(port, pin1, 0);
+			DIO_WritePin(port, pin2, 1);
+			DIO_WritePin(port, pin3, 0);
+			break;
+		case 6:
+			DIO_WritePin(port, pin0, 0);
+			DIO_WritePin(port, pin1, 1);
+			DIO_WritePin(port, pin2, 1);
+			DIO_WritePin(port, pin3, 0);
+			break;
+		case 7:
+			DIO_WritePin(port, pin0, 1);
+			DIO_WritePin(port, pin1, 1);
+			DIO_WritePin(port, pin2, 1);
+			DIO_WritePin(port, pin3, 0);
+			break;
+		case 8:
+			DIO_WritePin(port, pin0, 0);
+			DIO_WritePin(port, pin1, 0);
+			DIO_WritePin(port, pin2, 0);
+			DIO_WritePin(port, pin3, 1);
+			break;
+		case 9:
+			DIO_WritePin(port, pin0, 1);
+			DIO_WritePin(port, pin1, 0);
+			DIO_WritePin(port, pin2, 0);
+			DIO_WritePin(port, pin3, 1);
+			break;
+		default:
+			break;
+		}
+	}
+	else if(half == 1)
+	{
+		switch (value)
+			{
+			case 0:
+				DIO_WritePin(port, pin4, 0);
+				DIO_WritePin(port, pin5, 0);
+				DIO_WritePin(port, pin6, 0);
+				DIO_WritePin(port, pin7, 0);
+				break;
+			case 1:
+				DIO_WritePin(port, pin4, 1);
+				DIO_WritePin(port, pin5, 0);
+				DIO_WritePin(port, pin6, 0);
+				DIO_WritePin(port, pin7, 0);
+				break;
+			case 2:
+				DIO_WritePin(port, pin4, 0);
+				DIO_WritePin(port, pin5, 1);
+				DIO_WritePin(port, pin6, 0);
+				DIO_WritePin(port, pin7, 0);
+				break;
+			case 3:
+				DIO_WritePin(port, pin4, 1);
+				DIO_WritePin(port, pin5, 1);
+				DIO_WritePin(port, pin6, 0);
+				DIO_WritePin(port, pin7, 0);
+				break;
+			case 4:
+				DIO_WritePin(port, pin4, 0);
+				DIO_WritePin(port, pin5, 0);
+				DIO_WritePin(port, pin6, 1);
+				DIO_WritePin(port, pin7, 0);
+				break;
+			case 5:
+				DIO_WritePin(port, pin4, 1);
+				DIO_WritePin(port, pin5, 0);
+				DIO_WritePin(port, pin6, 1);
+				DIO_WritePin(port, pin7, 0);
+				break;
+			case 6:
+				DIO_WritePin(port, pin4, 0);
+				DIO_WritePin(port, pin5, 1);
+				DIO_WritePin(port, pin6, 1);
+				DIO_WritePin(port, pin7, 0);
+				break;
+			case 7:
+				DIO_WritePin(port, pin4, 1);
+				DIO_WritePin(port, pin5, 1);
+				DIO_WritePin(port, pin6, 1);
+				DIO_WritePin(port, pin7, 0);
+				break;
+			case 8:
+				DIO_WritePin(port, pin4, 0);
+				DIO_WritePin(port, pin5, 0);
+				DIO_WritePin(port, pin6, 0);
+				DIO_WritePin(port, pin7, 1);
+				break;
+			case 9:
+				DIO_WritePin(port, pin4, 1);
+				DIO_WritePin(port, pin5, 0);
+				DIO_WritePin(port, pin6, 0);
+				DIO_WritePin(port, pin7, 1);
+				break;
+			default:
+				break;
+			}
+	}
 }

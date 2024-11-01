@@ -18,6 +18,9 @@
 void SEVEN_SEG_Init(unsigned char port);
 void SEVEN_SEG_Write(unsigned char port,unsigned char value);
 void SEVEN_SEG_Blink(unsigned char port);
+void BCD_to_SEVEN_SEG_Init(unsigned char port, unsigned char half);
+void BCD_to_SEVEN_SEG_Write(unsigned char port, unsigned char half, unsigned char value);
+
 
 #define porta   'A'
 #define portb   'B'
