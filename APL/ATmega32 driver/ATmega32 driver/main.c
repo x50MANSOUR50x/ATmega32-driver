@@ -18,11 +18,14 @@ int main(void)
 	
     while (1) 
     {
-		for(unsigned char value=0; value < 10; value++)
+		for(unsigned char i=0; i<10; i++)
 		{
-			BCD_to_SEVEN_SEG_Write(portc, 0, value);
-			BCD_to_SEVEN_SEG_Write(portc, 1, value);
-			_delay_ms(1000);
+			BCD_to_SEVEN_SEG_Write(portc, 0, i);
+			for(unsigned char j=0; j < 10; j++)
+				{
+						BCD_to_SEVEN_SEG_Write(portc, 1, j);
+						_delay_ms(100);
+				}
 		}
 	}
 }

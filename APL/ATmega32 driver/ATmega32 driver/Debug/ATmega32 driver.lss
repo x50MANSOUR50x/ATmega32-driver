@@ -3,29 +3,29 @@ ATmega32 driver.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000670  00000000  00000000  00000054  2**1
+  0 .text         0000067a  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  000006c4  2**0
+  1 .data         00000000  00800060  00800060  000006ce  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  000006c4  2**0
+  2 .comment      00000030  00000000  00000000  000006ce  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000006f4  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000700  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 000000c0  00000000  00000000  00000730  2**0
+  4 .debug_aranges 000000c0  00000000  00000000  0000073c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000014ee  00000000  00000000  000007f0  2**0
+  5 .debug_info   00001503  00000000  00000000  000007fc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000075e  00000000  00000000  00001cde  2**0
+  6 .debug_abbrev 0000075e  00000000  00000000  00001cff  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000008ce  00000000  00000000  0000243c  2**0
+  7 .debug_line   000008e6  00000000  00000000  0000245d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  0000014c  00000000  00000000  00002d0c  2**2
+  8 .debug_frame  0000014c  00000000  00000000  00002d44  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000004c9  00000000  00000000  00002e58  2**0
+  9 .debug_str    000004c9  00000000  00000000  00002e90  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000c70  00000000  00000000  00003321  2**0
+ 10 .debug_loc    00000c8f  00000000  00000000  00003359  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000090  00000000  00000000  00003f91  2**0
+ 11 .debug_ranges 00000090  00000000  00000000  00003fe8  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -85,7 +85,7 @@ Disassembly of section .text:
   88:	10 e0       	ldi	r17, 0x00	; 0
   8a:	a0 e6       	ldi	r26, 0x60	; 96
   8c:	b0 e0       	ldi	r27, 0x00	; 0
-  8e:	e0 e7       	ldi	r30, 0x70	; 112
+  8e:	ea e7       	ldi	r30, 0x7A	; 122
   90:	f6 e0       	ldi	r31, 0x06	; 6
   92:	02 c0       	rjmp	.+4      	; 0x98 <__do_copy_data+0x10>
   94:	05 90       	lpm	r0, Z+
@@ -94,7 +94,7 @@ Disassembly of section .text:
   9a:	b1 07       	cpc	r27, r17
   9c:	d9 f7       	brne	.-10     	; 0x94 <__do_copy_data+0xc>
   9e:	0e 94 0f 03 	call	0x61e	; 0x61e <main>
-  a2:	0c 94 36 03 	jmp	0x66c	; 0x66c <_exit>
+  a2:	0c 94 3b 03 	jmp	0x676	; 0x676 <_exit>
 
 000000a6 <__bad_interrupt>:
   a6:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -167,7 +167,7 @@ void BCD_to_SEVEN_SEG_Write(unsigned char port, unsigned char half, unsigned cha
  118:	fa 01       	movw	r30, r20
  11a:	e6 5d       	subi	r30, 0xD6	; 214
  11c:	ff 4f       	sbci	r31, 0xFF	; 255
- 11e:	0c 94 30 03 	jmp	0x660	; 0x660 <__tablejump2__>
+ 11e:	0c 94 35 03 	jmp	0x66a	; 0x66a <__tablejump2__>
 		{
 		case 0:
 			DIO_WritePin(port, pin0, 0);
@@ -407,7 +407,7 @@ void BCD_to_SEVEN_SEG_Write(unsigned char port, unsigned char half, unsigned cha
  2c2:	fa 01       	movw	r30, r20
  2c4:	ec 5c       	subi	r30, 0xCC	; 204
  2c6:	ff 4f       	sbci	r31, 0xFF	; 255
- 2c8:	0c 94 30 03 	jmp	0x660	; 0x660 <__tablejump2__>
+ 2c8:	0c 94 35 03 	jmp	0x66a	; 0x66a <__tablejump2__>
 			{
 			case 0:
 				DIO_WritePin(port, pin4, 0);
@@ -994,56 +994,69 @@ int main(void)
 	
     while (1) 
     {
-		for(unsigned char value=0; value < 10; value++)
- 62e:	c0 e0       	ldi	r28, 0x00	; 0
- 630:	14 c0       	rjmp	.+40     	; 0x65a <main+0x3c>
+		for(unsigned char i=0; i<10; i++)
+ 62e:	d0 e0       	ldi	r29, 0x00	; 0
+ 630:	19 c0       	rjmp	.+50     	; 0x664 <main+0x46>
 		{
-			BCD_to_SEVEN_SEG_Write(portc, 0, value);
- 632:	4c 2f       	mov	r20, r28
+			BCD_to_SEVEN_SEG_Write(portc, 0, i);
+ 632:	4d 2f       	mov	r20, r29
  634:	60 e0       	ldi	r22, 0x00	; 0
  636:	83 e4       	ldi	r24, 0x43	; 67
  638:	0e 94 83 00 	call	0x106	; 0x106 <BCD_to_SEVEN_SEG_Write>
-			BCD_to_SEVEN_SEG_Write(portc, 1, value);
- 63c:	4c 2f       	mov	r20, r28
- 63e:	61 e0       	ldi	r22, 0x01	; 1
- 640:	83 e4       	ldi	r24, 0x43	; 67
- 642:	0e 94 83 00 	call	0x106	; 0x106 <BCD_to_SEVEN_SEG_Write>
+			for(unsigned char j=0; j < 10; j++)
+ 63c:	c0 e0       	ldi	r28, 0x00	; 0
+ 63e:	0f c0       	rjmp	.+30     	; 0x65e <main+0x40>
+				{
+						BCD_to_SEVEN_SEG_Write(portc, 1, j);
+ 640:	4c 2f       	mov	r20, r28
+ 642:	61 e0       	ldi	r22, 0x01	; 1
+ 644:	83 e4       	ldi	r24, 0x43	; 67
+ 646:	0e 94 83 00 	call	0x106	; 0x106 <BCD_to_SEVEN_SEG_Write>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 646:	2f ef       	ldi	r18, 0xFF	; 255
- 648:	89 e6       	ldi	r24, 0x69	; 105
- 64a:	98 e1       	ldi	r25, 0x18	; 24
- 64c:	21 50       	subi	r18, 0x01	; 1
- 64e:	80 40       	sbci	r24, 0x00	; 0
- 650:	90 40       	sbci	r25, 0x00	; 0
- 652:	e1 f7       	brne	.-8      	; 0x64c <main+0x2e>
- 654:	00 c0       	rjmp	.+0      	; 0x656 <main+0x38>
- 656:	00 00       	nop
+ 64a:	2f ef       	ldi	r18, 0xFF	; 255
+ 64c:	80 e7       	ldi	r24, 0x70	; 112
+ 64e:	92 e0       	ldi	r25, 0x02	; 2
+ 650:	21 50       	subi	r18, 0x01	; 1
+ 652:	80 40       	sbci	r24, 0x00	; 0
+ 654:	90 40       	sbci	r25, 0x00	; 0
+ 656:	e1 f7       	brne	.-8      	; 0x650 <main+0x32>
+ 658:	00 c0       	rjmp	.+0      	; 0x65a <main+0x3c>
+ 65a:	00 00       	nop
+    while (1) 
+    {
+		for(unsigned char i=0; i<10; i++)
+		{
+			BCD_to_SEVEN_SEG_Write(portc, 0, i);
+			for(unsigned char j=0; j < 10; j++)
+ 65c:	cf 5f       	subi	r28, 0xFF	; 255
+ 65e:	ca 30       	cpi	r28, 0x0A	; 10
+ 660:	78 f3       	brcs	.-34     	; 0x640 <main+0x22>
 	BCD_to_SEVEN_SEG_Init(portc, 0);
 	BCD_to_SEVEN_SEG_Init(portc, 1);
 	
     while (1) 
     {
-		for(unsigned char value=0; value < 10; value++)
- 658:	cf 5f       	subi	r28, 0xFF	; 255
- 65a:	ca 30       	cpi	r28, 0x0A	; 10
- 65c:	50 f3       	brcs	.-44     	; 0x632 <main+0x14>
- 65e:	e7 cf       	rjmp	.-50     	; 0x62e <main+0x10>
+		for(unsigned char i=0; i<10; i++)
+ 662:	df 5f       	subi	r29, 0xFF	; 255
+ 664:	da 30       	cpi	r29, 0x0A	; 10
+ 666:	28 f3       	brcs	.-54     	; 0x632 <main+0x14>
+ 668:	e2 cf       	rjmp	.-60     	; 0x62e <main+0x10>
 
-00000660 <__tablejump2__>:
- 660:	ee 0f       	add	r30, r30
- 662:	ff 1f       	adc	r31, r31
- 664:	05 90       	lpm	r0, Z+
- 666:	f4 91       	lpm	r31, Z
- 668:	e0 2d       	mov	r30, r0
- 66a:	09 94       	ijmp
+0000066a <__tablejump2__>:
+ 66a:	ee 0f       	add	r30, r30
+ 66c:	ff 1f       	adc	r31, r31
+ 66e:	05 90       	lpm	r0, Z+
+ 670:	f4 91       	lpm	r31, Z
+ 672:	e0 2d       	mov	r30, r0
+ 674:	09 94       	ijmp
 
-0000066c <_exit>:
- 66c:	f8 94       	cli
+00000676 <_exit>:
+ 676:	f8 94       	cli
 
-0000066e <__stop_program>:
- 66e:	ff cf       	rjmp	.-2      	; 0x66e <__stop_program>
+00000678 <__stop_program>:
+ 678:	ff cf       	rjmp	.-2      	; 0x678 <__stop_program>
