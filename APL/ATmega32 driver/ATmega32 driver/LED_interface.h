@@ -24,7 +24,7 @@ unsigned char LED_ReadStatus(unsigned char port,unsigned char pin);
 #define portc   'C'
 #define portd   'D'
 #define HIGH     1
-#define LOW      0
+#define LOW_      0
 #define pin0     0
 #define pin1     1
 #define pin2     2

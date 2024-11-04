@@ -16,34 +16,24 @@
 
 int main(void)
 {
-	LED_Init(porta, pin0);
-	LED_Init(porta, pin7);
+	LED_Init(portc, pin1);
+	//LED_Init(porta, pin7);
 	EXTI_vEnable(EXTI0);
-	EXTI_vActiveMode(EXTI0, RISING);
+	// EXTI_vActiveMode(EXTI0, LOW);
+	EXTI_vActiveMode(EXTI0, CHANGE);
+	// EXTI_vActiveMode(EXTI0, FALLING);
+	// EXTI_vActiveMode(EXTI0, RISING);
     while (1) 
     {
-		LED_On(porta, pin0);
-		_delay_ms(1000);
-		LED_Off(porta, pin0);
-		_delay_ms(1000);
+		LED_On(portc, pin1);
 	}
 }
 
 ISR(INT0_vect)
 {
 	// EXTI_vDisable(EXTI0);
-	LED_On(porta, pin7);
-	_delay_ms(1000);
-	LED_Off(porta, pin7);
-	_delay_ms(1000);
-	LED_On(porta, pin7);
-	_delay_ms(1000);
-	LED_Off(porta, pin7);
-	_delay_ms(1000);
-	LED_On(porta, pin7);
-	_delay_ms(1000);
-	LED_Off(porta, pin7);
-	_delay_ms(1000);
+	LED_Off(portc, pin1);
+	_delay_ms(3000);
 	// EXTI_vEnable(EXTI0);
 }
 

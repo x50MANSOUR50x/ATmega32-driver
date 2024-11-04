@@ -3,36 +3,36 @@ ATmega32 driver.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000452  00000000  00000000  00000054  2**1
+  0 .text         000003f4  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  000004a6  2**0
+  1 .data         00000000  00800060  00800060  00000448  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  000004a6  2**0
+  2 .comment      00000030  00000000  00000000  00000448  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000004d8  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000478  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 000000f8  00000000  00000000  00000514  2**0
+  4 .debug_aranges 000000f8  00000000  00000000  000004b4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000e88  00000000  00000000  0000060c  2**0
+  5 .debug_info   00000c48  00000000  00000000  000005ac  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000007cf  00000000  00000000  00001494  2**0
+  6 .debug_abbrev 000007b4  00000000  00000000  000011f4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000840  00000000  00000000  00001c63  2**0
+  7 .debug_line   000007d7  00000000  00000000  000019a8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000001c8  00000000  00000000  000024a4  2**2
+  8 .debug_frame  000001c8  00000000  00000000  00002180  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000004e2  00000000  00000000  0000266c  2**0
+  9 .debug_str    000004e2  00000000  00000000  00002348  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000a09  00000000  00000000  00002b4e  2**0
+ 10 .debug_loc    000008bd  00000000  00000000  0000282a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 000000b8  00000000  00000000  00003557  2**0
+ 11 .debug_ranges 000000b8  00000000  00000000  000030e7  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
    0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
-   4:	0c 94 b7 01 	jmp	0x36e	; 0x36e <__vector_1>
+   4:	0c 94 c9 01 	jmp	0x392	; 0x392 <__vector_1>
    8:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
    c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
   10:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
@@ -65,16 +65,16 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e2 e5       	ldi	r30, 0x52	; 82
-  68:	f4 e0       	ldi	r31, 0x04	; 4
+  66:	e4 ef       	ldi	r30, 0xF4	; 244
+  68:	f3 e0       	ldi	r31, 0x03	; 3
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
   70:	a0 36       	cpi	r26, 0x60	; 96
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
-  76:	0e 94 8d 01 	call	0x31a	; 0x31a <main>
-  7a:	0c 94 27 02 	jmp	0x44e	; 0x44e <_exit>
+  76:	0e 94 b9 01 	call	0x372	; 0x372 <main>
+  7a:	0c 94 f8 01 	jmp	0x3f0	; 0x3f0 <_exit>
 
 0000007e <__bad_interrupt>:
   7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -457,341 +457,324 @@ void EXTI_vEnable(unsigned char EXTI_PIN)
  264:	08 95       	ret
 
 00000266 <EXTI_vActiveMode>:
-	}
-}
+// RISING   0     	
 
 void EXTI_vActiveMode(unsigned char EXTI_PIN,unsigned char EXTI_MODE)
 { 
-	if (EXTI_MODE == FALLING   && EXTI_PIN ==EXTI0)
- 266:	61 11       	cpse	r22, r1
- 268:	0c c0       	rjmp	.+24     	; 0x282 <EXTI_vActiveMode+0x1c>
- 26a:	81 11       	cpse	r24, r1
- 26c:	0a c0       	rjmp	.+20     	; 0x282 <EXTI_vActiveMode+0x1c>
-	{
-		Bit_Set(SREG,7);
- 26e:	8f b7       	in	r24, 0x3f	; 63
- 270:	80 68       	ori	r24, 0x80	; 128
- 272:	8f bf       	out	0x3f, r24	; 63
-		Bit_Set(MCUCR,ISC01);
- 274:	85 b7       	in	r24, 0x35	; 53
- 276:	82 60       	ori	r24, 0x02	; 2
- 278:	85 bf       	out	0x35, r24	; 53
-		Bit_Clear(MCUCR,ISC00);
- 27a:	85 b7       	in	r24, 0x35	; 53
- 27c:	8e 7f       	andi	r24, 0xFE	; 254
- 27e:	85 bf       	out	0x35, r24	; 53
- 280:	08 95       	ret
-	}
-    else if (EXTI_MODE == RISING   && EXTI_PIN ==EXTI0)
- 282:	61 30       	cpi	r22, 0x01	; 1
- 284:	61 f4       	brne	.+24     	; 0x29e <EXTI_vActiveMode+0x38>
- 286:	81 11       	cpse	r24, r1
- 288:	0a c0       	rjmp	.+20     	; 0x29e <EXTI_vActiveMode+0x38>
-    {
-		Bit_Set(SREG,7);
- 28a:	8f b7       	in	r24, 0x3f	; 63
- 28c:	80 68       	ori	r24, 0x80	; 128
- 28e:	8f bf       	out	0x3f, r24	; 63
-		Bit_Set(MCUCR,ISC01);
- 290:	85 b7       	in	r24, 0x35	; 53
- 292:	82 60       	ori	r24, 0x02	; 2
- 294:	85 bf       	out	0x35, r24	; 53
-		Bit_Set(MCUCR,ISC00);
- 296:	85 b7       	in	r24, 0x35	; 53
- 298:	81 60       	ori	r24, 0x01	; 1
- 29a:	85 bf       	out	0x35, r24	; 53
- 29c:	08 95       	ret
-    }
-    else if (EXTI_MODE == FALLING   && EXTI_PIN ==EXTI1)
- 29e:	61 11       	cpse	r22, r1
- 2a0:	0c c0       	rjmp	.+24     	; 0x2ba <EXTI_vActiveMode+0x54>
- 2a2:	81 30       	cpi	r24, 0x01	; 1
- 2a4:	51 f4       	brne	.+20     	; 0x2ba <EXTI_vActiveMode+0x54>
-    { 
-		Bit_Set(SREG,7);
- 2a6:	8f b7       	in	r24, 0x3f	; 63
- 2a8:	80 68       	ori	r24, 0x80	; 128
- 2aa:	8f bf       	out	0x3f, r24	; 63
-	    Bit_Set(MCUCR,ISC11);
- 2ac:	85 b7       	in	r24, 0x35	; 53
- 2ae:	88 60       	ori	r24, 0x08	; 8
- 2b0:	85 bf       	out	0x35, r24	; 53
-	    Bit_Clear(MCUCR,ISC10);   
- 2b2:	85 b7       	in	r24, 0x35	; 53
- 2b4:	8b 7f       	andi	r24, 0xFB	; 251
- 2b6:	85 bf       	out	0x35, r24	; 53
- 2b8:	08 95       	ret
-    }	
-    else if (EXTI_MODE == RISING   && EXTI_PIN ==EXTI1)
- 2ba:	61 30       	cpi	r22, 0x01	; 1
- 2bc:	61 f4       	brne	.+24     	; 0x2d6 <EXTI_vActiveMode+0x70>
- 2be:	81 30       	cpi	r24, 0x01	; 1
- 2c0:	51 f4       	brne	.+20     	; 0x2d6 <EXTI_vActiveMode+0x70>
-    {
-		Bit_Set(SREG,7);
- 2c2:	8f b7       	in	r24, 0x3f	; 63
- 2c4:	80 68       	ori	r24, 0x80	; 128
- 2c6:	8f bf       	out	0x3f, r24	; 63
-	    Bit_Set(MCUCR,ISC10);
- 2c8:	85 b7       	in	r24, 0x35	; 53
- 2ca:	84 60       	ori	r24, 0x04	; 4
- 2cc:	85 bf       	out	0x35, r24	; 53
-	    Bit_Set(MCUCR,ISC11);
- 2ce:	85 b7       	in	r24, 0x35	; 53
- 2d0:	88 60       	ori	r24, 0x08	; 8
- 2d2:	85 bf       	out	0x35, r24	; 53
- 2d4:	08 95       	ret
-    }
-    else if (EXTI_MODE == FALLING   && EXTI_PIN ==EXTI2)
- 2d6:	61 11       	cpse	r22, r1
- 2d8:	09 c0       	rjmp	.+18     	; 0x2ec <EXTI_vActiveMode+0x86>
- 2da:	82 30       	cpi	r24, 0x02	; 2
- 2dc:	39 f4       	brne	.+14     	; 0x2ec <EXTI_vActiveMode+0x86>
-    {
-		Bit_Set(SREG,7);
- 2de:	8f b7       	in	r24, 0x3f	; 63
- 2e0:	80 68       	ori	r24, 0x80	; 128
- 2e2:	8f bf       	out	0x3f, r24	; 63
-        Bit_Set(MCUCSR,ISC2);
- 2e4:	84 b7       	in	r24, 0x34	; 52
- 2e6:	80 64       	ori	r24, 0x40	; 64
- 2e8:	84 bf       	out	0x34, r24	; 52
- 2ea:	08 95       	ret
-    }
-    else if (EXTI_MODE == RISING   && EXTI_PIN ==EXTI2)
- 2ec:	61 30       	cpi	r22, 0x01	; 1
- 2ee:	41 f4       	brne	.+16     	; 0x300 <EXTI_vActiveMode+0x9a>
- 2f0:	82 30       	cpi	r24, 0x02	; 2
- 2f2:	31 f4       	brne	.+12     	; 0x300 <EXTI_vActiveMode+0x9a>
-    {
-		Bit_Set(SREG,7);
- 2f4:	8f b7       	in	r24, 0x3f	; 63
- 2f6:	80 68       	ori	r24, 0x80	; 128
- 2f8:	8f bf       	out	0x3f, r24	; 63
-        Bit_Clear(MCUCSR,ISC2);
- 2fa:	84 b7       	in	r24, 0x34	; 52
- 2fc:	8f 7b       	andi	r24, 0xBF	; 191
- 2fe:	84 bf       	out	0x34, r24	; 52
- 300:	08 95       	ret
 
-00000302 <LED_Init>:
+	switch (EXTI_PIN)
+ 266:	81 30       	cpi	r24, 0x01	; 1
+ 268:	a9 f1       	breq	.+106    	; 0x2d4 <EXTI_vActiveMode+0x6e>
+ 26a:	20 f0       	brcs	.+8      	; 0x274 <EXTI_vActiveMode+0xe>
+ 26c:	82 30       	cpi	r24, 0x02	; 2
+ 26e:	09 f4       	brne	.+2      	; 0x272 <EXTI_vActiveMode+0xc>
+ 270:	61 c0       	rjmp	.+194    	; 0x334 <EXTI_vActiveMode+0xce>
+ 272:	08 95       	ret
+	{
+	case EXTI0:
+		switch (EXTI_MODE)
+ 274:	61 30       	cpi	r22, 0x01	; 1
+ 276:	21 f1       	breq	.+72     	; 0x2c0 <EXTI_vActiveMode+0x5a>
+ 278:	c8 f0       	brcs	.+50     	; 0x2ac <EXTI_vActiveMode+0x46>
+ 27a:	62 30       	cpi	r22, 0x02	; 2
+ 27c:	19 f0       	breq	.+6      	; 0x284 <EXTI_vActiveMode+0x1e>
+ 27e:	63 30       	cpi	r22, 0x03	; 3
+ 280:	59 f0       	breq	.+22     	; 0x298 <EXTI_vActiveMode+0x32>
+ 282:	08 95       	ret
+		{
+			case LOW:
+				Bit_Set(SREG, GIE);
+ 284:	8f b7       	in	r24, 0x3f	; 63
+ 286:	80 68       	ori	r24, 0x80	; 128
+ 288:	8f bf       	out	0x3f, r24	; 63
+				Bit_Clear(MCUCR, ISC00);
+ 28a:	85 b7       	in	r24, 0x35	; 53
+ 28c:	8e 7f       	andi	r24, 0xFE	; 254
+ 28e:	85 bf       	out	0x35, r24	; 53
+				Bit_Clear(MCUCR, ISC01);
+ 290:	85 b7       	in	r24, 0x35	; 53
+ 292:	8d 7f       	andi	r24, 0xFD	; 253
+ 294:	85 bf       	out	0x35, r24	; 53
+				break;
+ 296:	08 95       	ret
+			case CHANGE:
+				Bit_Set(SREG, GIE);
+ 298:	8f b7       	in	r24, 0x3f	; 63
+ 29a:	80 68       	ori	r24, 0x80	; 128
+ 29c:	8f bf       	out	0x3f, r24	; 63
+				Bit_Set(MCUCR, ISC00);
+ 29e:	85 b7       	in	r24, 0x35	; 53
+ 2a0:	81 60       	ori	r24, 0x01	; 1
+ 2a2:	85 bf       	out	0x35, r24	; 53
+				Bit_Clear(MCUCR, ISC01);
+ 2a4:	85 b7       	in	r24, 0x35	; 53
+ 2a6:	8d 7f       	andi	r24, 0xFD	; 253
+ 2a8:	85 bf       	out	0x35, r24	; 53
+				break;
+ 2aa:	08 95       	ret
+			case FALLING:
+				Bit_Set(SREG, GIE);
+ 2ac:	8f b7       	in	r24, 0x3f	; 63
+ 2ae:	80 68       	ori	r24, 0x80	; 128
+ 2b0:	8f bf       	out	0x3f, r24	; 63
+				Bit_Clear(MCUCR, ISC00);
+ 2b2:	85 b7       	in	r24, 0x35	; 53
+ 2b4:	8e 7f       	andi	r24, 0xFE	; 254
+ 2b6:	85 bf       	out	0x35, r24	; 53
+				Bit_Set(MCUCR, ISC01);
+ 2b8:	85 b7       	in	r24, 0x35	; 53
+ 2ba:	82 60       	ori	r24, 0x02	; 2
+ 2bc:	85 bf       	out	0x35, r24	; 53
+				break;
+ 2be:	08 95       	ret
+			case RISING:
+				Bit_Set(SREG, GIE);
+ 2c0:	8f b7       	in	r24, 0x3f	; 63
+ 2c2:	80 68       	ori	r24, 0x80	; 128
+ 2c4:	8f bf       	out	0x3f, r24	; 63
+				Bit_Set(MCUCR, ISC00);
+ 2c6:	85 b7       	in	r24, 0x35	; 53
+ 2c8:	81 60       	ori	r24, 0x01	; 1
+ 2ca:	85 bf       	out	0x35, r24	; 53
+				Bit_Set(MCUCR, ISC01);
+ 2cc:	85 b7       	in	r24, 0x35	; 53
+ 2ce:	82 60       	ori	r24, 0x02	; 2
+ 2d0:	85 bf       	out	0x35, r24	; 53
+				break;
+ 2d2:	08 95       	ret
+			default:
+				break;
+		}
+		break;
+	case EXTI1:
+		switch (EXTI_MODE)
+ 2d4:	61 30       	cpi	r22, 0x01	; 1
+ 2d6:	21 f1       	breq	.+72     	; 0x320 <EXTI_vActiveMode+0xba>
+ 2d8:	c8 f0       	brcs	.+50     	; 0x30c <EXTI_vActiveMode+0xa6>
+ 2da:	62 30       	cpi	r22, 0x02	; 2
+ 2dc:	19 f0       	breq	.+6      	; 0x2e4 <EXTI_vActiveMode+0x7e>
+ 2de:	63 30       	cpi	r22, 0x03	; 3
+ 2e0:	59 f0       	breq	.+22     	; 0x2f8 <EXTI_vActiveMode+0x92>
+ 2e2:	08 95       	ret
+		{
+			case LOW:
+				Bit_Set(SREG, GIE);
+ 2e4:	8f b7       	in	r24, 0x3f	; 63
+ 2e6:	80 68       	ori	r24, 0x80	; 128
+ 2e8:	8f bf       	out	0x3f, r24	; 63
+				Bit_Clear(MCUCR, ISC10);
+ 2ea:	85 b7       	in	r24, 0x35	; 53
+ 2ec:	8b 7f       	andi	r24, 0xFB	; 251
+ 2ee:	85 bf       	out	0x35, r24	; 53
+				Bit_Clear(MCUCR, ISC11);
+ 2f0:	85 b7       	in	r24, 0x35	; 53
+ 2f2:	87 7f       	andi	r24, 0xF7	; 247
+ 2f4:	85 bf       	out	0x35, r24	; 53
+				break;
+ 2f6:	08 95       	ret
+			case CHANGE:
+				Bit_Set(SREG, GIE);
+ 2f8:	8f b7       	in	r24, 0x3f	; 63
+ 2fa:	80 68       	ori	r24, 0x80	; 128
+ 2fc:	8f bf       	out	0x3f, r24	; 63
+				Bit_Set(MCUCR, ISC10);
+ 2fe:	85 b7       	in	r24, 0x35	; 53
+ 300:	84 60       	ori	r24, 0x04	; 4
+ 302:	85 bf       	out	0x35, r24	; 53
+				Bit_Clear(MCUCR, ISC11);
+ 304:	85 b7       	in	r24, 0x35	; 53
+ 306:	87 7f       	andi	r24, 0xF7	; 247
+ 308:	85 bf       	out	0x35, r24	; 53
+				break;
+ 30a:	08 95       	ret
+			case FALLING:
+				Bit_Set(SREG, GIE);
+ 30c:	8f b7       	in	r24, 0x3f	; 63
+ 30e:	80 68       	ori	r24, 0x80	; 128
+ 310:	8f bf       	out	0x3f, r24	; 63
+				Bit_Clear(MCUCR, ISC10);
+ 312:	85 b7       	in	r24, 0x35	; 53
+ 314:	8b 7f       	andi	r24, 0xFB	; 251
+ 316:	85 bf       	out	0x35, r24	; 53
+				Bit_Set(MCUCR, ISC11);
+ 318:	85 b7       	in	r24, 0x35	; 53
+ 31a:	88 60       	ori	r24, 0x08	; 8
+ 31c:	85 bf       	out	0x35, r24	; 53
+				break;
+ 31e:	08 95       	ret
+			case RISING:
+				Bit_Set(SREG, GIE);
+ 320:	8f b7       	in	r24, 0x3f	; 63
+ 322:	80 68       	ori	r24, 0x80	; 128
+ 324:	8f bf       	out	0x3f, r24	; 63
+				Bit_Set(MCUCR, ISC10);
+ 326:	85 b7       	in	r24, 0x35	; 53
+ 328:	84 60       	ori	r24, 0x04	; 4
+ 32a:	85 bf       	out	0x35, r24	; 53
+				Bit_Set(MCUCR, ISC11);
+ 32c:	85 b7       	in	r24, 0x35	; 53
+ 32e:	88 60       	ori	r24, 0x08	; 8
+ 330:	85 bf       	out	0x35, r24	; 53
+				break;
+ 332:	08 95       	ret
+			default:
+				break;
+		}
+		break;
+	case EXTI2:
+		switch (EXTI_MODE)
+ 334:	66 23       	and	r22, r22
+ 336:	19 f0       	breq	.+6      	; 0x33e <EXTI_vActiveMode+0xd8>
+ 338:	61 30       	cpi	r22, 0x01	; 1
+ 33a:	41 f0       	breq	.+16     	; 0x34c <EXTI_vActiveMode+0xe6>
+ 33c:	08 95       	ret
+		{
+			case FALLING:
+				Bit_Set(SREG, GIE);
+ 33e:	8f b7       	in	r24, 0x3f	; 63
+ 340:	80 68       	ori	r24, 0x80	; 128
+ 342:	8f bf       	out	0x3f, r24	; 63
+				Bit_Set(MCUCSR, ISC2);
+ 344:	84 b7       	in	r24, 0x34	; 52
+ 346:	80 64       	ori	r24, 0x40	; 64
+ 348:	84 bf       	out	0x34, r24	; 52
+				break;
+ 34a:	08 95       	ret
+			case RISING:
+				Bit_Set(SREG, GIE);
+ 34c:	8f b7       	in	r24, 0x3f	; 63
+ 34e:	80 68       	ori	r24, 0x80	; 128
+ 350:	8f bf       	out	0x3f, r24	; 63
+				Bit_Clear(MCUCSR, ISC2);
+ 352:	84 b7       	in	r24, 0x34	; 52
+ 354:	8f 7b       	andi	r24, 0xBF	; 191
+ 356:	84 bf       	out	0x34, r24	; 52
+ 358:	08 95       	ret
+
+0000035a <LED_Init>:
 /**********************************************************************************************/
 #include "DIO_interface.h"
 #include "Definitions.h"
 void LED_Init(uint8_t port,uint8_t pin)
 {
 	DIO_SetPinDir(port,pin,OUTPUT);
- 302:	41 e0       	ldi	r20, 0x01	; 1
- 304:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
- 308:	08 95       	ret
+ 35a:	41 e0       	ldi	r20, 0x01	; 1
+ 35c:	0e 94 41 00 	call	0x82	; 0x82 <DIO_SetPinDir>
+ 360:	08 95       	ret
 
-0000030a <LED_On>:
+00000362 <LED_On>:
 }
 void LED_On(uint8_t port,uint8_t pin)
 {
 	DIO_WritePin(port,pin,1);
- 30a:	41 e0       	ldi	r20, 0x01	; 1
- 30c:	0e 94 b1 00 	call	0x162	; 0x162 <DIO_WritePin>
- 310:	08 95       	ret
+ 362:	41 e0       	ldi	r20, 0x01	; 1
+ 364:	0e 94 b1 00 	call	0x162	; 0x162 <DIO_WritePin>
+ 368:	08 95       	ret
 
-00000312 <LED_Off>:
+0000036a <LED_Off>:
 }
 void LED_Off(uint8_t port,uint8_t pin)
 {
 	DIO_WritePin(port,pin,0);
- 312:	40 e0       	ldi	r20, 0x00	; 0
- 314:	0e 94 b1 00 	call	0x162	; 0x162 <DIO_WritePin>
- 318:	08 95       	ret
+ 36a:	40 e0       	ldi	r20, 0x00	; 0
+ 36c:	0e 94 b1 00 	call	0x162	; 0x162 <DIO_WritePin>
+ 370:	08 95       	ret
 
-0000031a <main>:
+00000372 <main>:
 #include "EXTI_interface.h"
 
 
 int main(void)
 {
-	LED_Init(porta, pin0);
- 31a:	60 e0       	ldi	r22, 0x00	; 0
- 31c:	81 e4       	ldi	r24, 0x41	; 65
- 31e:	0e 94 81 01 	call	0x302	; 0x302 <LED_Init>
-	LED_Init(porta, pin7);
- 322:	67 e0       	ldi	r22, 0x07	; 7
- 324:	81 e4       	ldi	r24, 0x41	; 65
- 326:	0e 94 81 01 	call	0x302	; 0x302 <LED_Init>
+	LED_Init(portc, pin1);
+ 372:	61 e0       	ldi	r22, 0x01	; 1
+ 374:	83 e4       	ldi	r24, 0x43	; 67
+ 376:	0e 94 ad 01 	call	0x35a	; 0x35a <LED_Init>
+	//LED_Init(porta, pin7);
 	EXTI_vEnable(EXTI0);
- 32a:	80 e0       	ldi	r24, 0x00	; 0
- 32c:	0e 94 21 01 	call	0x242	; 0x242 <EXTI_vEnable>
-	EXTI_vActiveMode(EXTI0, RISING);
- 330:	61 e0       	ldi	r22, 0x01	; 1
- 332:	80 e0       	ldi	r24, 0x00	; 0
- 334:	0e 94 33 01 	call	0x266	; 0x266 <EXTI_vActiveMode>
+ 37a:	80 e0       	ldi	r24, 0x00	; 0
+ 37c:	0e 94 21 01 	call	0x242	; 0x242 <EXTI_vEnable>
+	// EXTI_vActiveMode(EXTI0, LOW);
+	EXTI_vActiveMode(EXTI0, CHANGE);
+ 380:	63 e0       	ldi	r22, 0x03	; 3
+ 382:	80 e0       	ldi	r24, 0x00	; 0
+ 384:	0e 94 33 01 	call	0x266	; 0x266 <EXTI_vActiveMode>
+	// EXTI_vActiveMode(EXTI0, FALLING);
+	// EXTI_vActiveMode(EXTI0, RISING);
     while (1) 
     {
-		LED_On(porta, pin0);
- 338:	60 e0       	ldi	r22, 0x00	; 0
- 33a:	81 e4       	ldi	r24, 0x41	; 65
- 33c:	0e 94 85 01 	call	0x30a	; 0x30a <LED_On>
+		LED_On(portc, pin1);
+ 388:	61 e0       	ldi	r22, 0x01	; 1
+ 38a:	83 e4       	ldi	r24, 0x43	; 67
+ 38c:	0e 94 b1 01 	call	0x362	; 0x362 <LED_On>
+ 390:	fb cf       	rjmp	.-10     	; 0x388 <main+0x16>
+
+00000392 <__vector_1>:
+	}
+}
+
+ISR(INT0_vect)
+{
+ 392:	1f 92       	push	r1
+ 394:	0f 92       	push	r0
+ 396:	0f b6       	in	r0, 0x3f	; 63
+ 398:	0f 92       	push	r0
+ 39a:	11 24       	eor	r1, r1
+ 39c:	2f 93       	push	r18
+ 39e:	3f 93       	push	r19
+ 3a0:	4f 93       	push	r20
+ 3a2:	5f 93       	push	r21
+ 3a4:	6f 93       	push	r22
+ 3a6:	7f 93       	push	r23
+ 3a8:	8f 93       	push	r24
+ 3aa:	9f 93       	push	r25
+ 3ac:	af 93       	push	r26
+ 3ae:	bf 93       	push	r27
+ 3b0:	ef 93       	push	r30
+ 3b2:	ff 93       	push	r31
+	// EXTI_vDisable(EXTI0);
+	LED_Off(portc, pin1);
+ 3b4:	61 e0       	ldi	r22, 0x01	; 1
+ 3b6:	83 e4       	ldi	r24, 0x43	; 67
+ 3b8:	0e 94 b5 01 	call	0x36a	; 0x36a <LED_Off>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 340:	2f ef       	ldi	r18, 0xFF	; 255
- 342:	89 e6       	ldi	r24, 0x69	; 105
- 344:	98 e1       	ldi	r25, 0x18	; 24
- 346:	21 50       	subi	r18, 0x01	; 1
- 348:	80 40       	sbci	r24, 0x00	; 0
- 34a:	90 40       	sbci	r25, 0x00	; 0
- 34c:	e1 f7       	brne	.-8      	; 0x346 <main+0x2c>
- 34e:	00 c0       	rjmp	.+0      	; 0x350 <main+0x36>
- 350:	00 00       	nop
-		_delay_ms(1000);
-		LED_Off(porta, pin0);
- 352:	60 e0       	ldi	r22, 0x00	; 0
- 354:	81 e4       	ldi	r24, 0x41	; 65
- 356:	0e 94 89 01 	call	0x312	; 0x312 <LED_Off>
- 35a:	2f ef       	ldi	r18, 0xFF	; 255
- 35c:	89 e6       	ldi	r24, 0x69	; 105
- 35e:	98 e1       	ldi	r25, 0x18	; 24
- 360:	21 50       	subi	r18, 0x01	; 1
- 362:	80 40       	sbci	r24, 0x00	; 0
- 364:	90 40       	sbci	r25, 0x00	; 0
- 366:	e1 f7       	brne	.-8      	; 0x360 <main+0x46>
- 368:	00 c0       	rjmp	.+0      	; 0x36a <main+0x50>
- 36a:	00 00       	nop
- 36c:	e5 cf       	rjmp	.-54     	; 0x338 <main+0x1e>
-
-0000036e <__vector_1>:
-		_delay_ms(1000);
-	}
-}
-
-ISR(INT0_vect)
-{
- 36e:	1f 92       	push	r1
- 370:	0f 92       	push	r0
- 372:	0f b6       	in	r0, 0x3f	; 63
- 374:	0f 92       	push	r0
- 376:	11 24       	eor	r1, r1
- 378:	2f 93       	push	r18
- 37a:	3f 93       	push	r19
- 37c:	4f 93       	push	r20
- 37e:	5f 93       	push	r21
- 380:	6f 93       	push	r22
- 382:	7f 93       	push	r23
- 384:	8f 93       	push	r24
- 386:	9f 93       	push	r25
- 388:	af 93       	push	r26
- 38a:	bf 93       	push	r27
- 38c:	ef 93       	push	r30
- 38e:	ff 93       	push	r31
-	// EXTI_vDisable(EXTI0);
-	LED_On(porta, pin7);
- 390:	67 e0       	ldi	r22, 0x07	; 7
- 392:	81 e4       	ldi	r24, 0x41	; 65
- 394:	0e 94 85 01 	call	0x30a	; 0x30a <LED_On>
- 398:	2f ef       	ldi	r18, 0xFF	; 255
- 39a:	89 e6       	ldi	r24, 0x69	; 105
- 39c:	98 e1       	ldi	r25, 0x18	; 24
- 39e:	21 50       	subi	r18, 0x01	; 1
- 3a0:	80 40       	sbci	r24, 0x00	; 0
- 3a2:	90 40       	sbci	r25, 0x00	; 0
- 3a4:	e1 f7       	brne	.-8      	; 0x39e <__vector_1+0x30>
- 3a6:	00 c0       	rjmp	.+0      	; 0x3a8 <__vector_1+0x3a>
- 3a8:	00 00       	nop
-	_delay_ms(1000);
-	LED_Off(porta, pin7);
- 3aa:	67 e0       	ldi	r22, 0x07	; 7
- 3ac:	81 e4       	ldi	r24, 0x41	; 65
- 3ae:	0e 94 89 01 	call	0x312	; 0x312 <LED_Off>
- 3b2:	2f ef       	ldi	r18, 0xFF	; 255
- 3b4:	89 e6       	ldi	r24, 0x69	; 105
- 3b6:	98 e1       	ldi	r25, 0x18	; 24
- 3b8:	21 50       	subi	r18, 0x01	; 1
- 3ba:	80 40       	sbci	r24, 0x00	; 0
- 3bc:	90 40       	sbci	r25, 0x00	; 0
- 3be:	e1 f7       	brne	.-8      	; 0x3b8 <__vector_1+0x4a>
- 3c0:	00 c0       	rjmp	.+0      	; 0x3c2 <__vector_1+0x54>
- 3c2:	00 00       	nop
-	_delay_ms(1000);
-	LED_On(porta, pin7);
- 3c4:	67 e0       	ldi	r22, 0x07	; 7
- 3c6:	81 e4       	ldi	r24, 0x41	; 65
- 3c8:	0e 94 85 01 	call	0x30a	; 0x30a <LED_On>
- 3cc:	2f ef       	ldi	r18, 0xFF	; 255
- 3ce:	89 e6       	ldi	r24, 0x69	; 105
- 3d0:	98 e1       	ldi	r25, 0x18	; 24
- 3d2:	21 50       	subi	r18, 0x01	; 1
- 3d4:	80 40       	sbci	r24, 0x00	; 0
- 3d6:	90 40       	sbci	r25, 0x00	; 0
- 3d8:	e1 f7       	brne	.-8      	; 0x3d2 <__vector_1+0x64>
- 3da:	00 c0       	rjmp	.+0      	; 0x3dc <__vector_1+0x6e>
- 3dc:	00 00       	nop
-	_delay_ms(1000);
-	LED_Off(porta, pin7);
- 3de:	67 e0       	ldi	r22, 0x07	; 7
- 3e0:	81 e4       	ldi	r24, 0x41	; 65
- 3e2:	0e 94 89 01 	call	0x312	; 0x312 <LED_Off>
- 3e6:	2f ef       	ldi	r18, 0xFF	; 255
- 3e8:	89 e6       	ldi	r24, 0x69	; 105
- 3ea:	98 e1       	ldi	r25, 0x18	; 24
- 3ec:	21 50       	subi	r18, 0x01	; 1
- 3ee:	80 40       	sbci	r24, 0x00	; 0
- 3f0:	90 40       	sbci	r25, 0x00	; 0
- 3f2:	e1 f7       	brne	.-8      	; 0x3ec <__vector_1+0x7e>
- 3f4:	00 c0       	rjmp	.+0      	; 0x3f6 <__vector_1+0x88>
- 3f6:	00 00       	nop
-	_delay_ms(1000);
-	LED_On(porta, pin7);
- 3f8:	67 e0       	ldi	r22, 0x07	; 7
- 3fa:	81 e4       	ldi	r24, 0x41	; 65
- 3fc:	0e 94 85 01 	call	0x30a	; 0x30a <LED_On>
- 400:	2f ef       	ldi	r18, 0xFF	; 255
- 402:	89 e6       	ldi	r24, 0x69	; 105
- 404:	98 e1       	ldi	r25, 0x18	; 24
- 406:	21 50       	subi	r18, 0x01	; 1
- 408:	80 40       	sbci	r24, 0x00	; 0
- 40a:	90 40       	sbci	r25, 0x00	; 0
- 40c:	e1 f7       	brne	.-8      	; 0x406 <__EEPROM_REGION_LENGTH__+0x6>
- 40e:	00 c0       	rjmp	.+0      	; 0x410 <__EEPROM_REGION_LENGTH__+0x10>
- 410:	00 00       	nop
-	_delay_ms(1000);
-	LED_Off(porta, pin7);
- 412:	67 e0       	ldi	r22, 0x07	; 7
- 414:	81 e4       	ldi	r24, 0x41	; 65
- 416:	0e 94 89 01 	call	0x312	; 0x312 <LED_Off>
- 41a:	2f ef       	ldi	r18, 0xFF	; 255
- 41c:	89 e6       	ldi	r24, 0x69	; 105
- 41e:	98 e1       	ldi	r25, 0x18	; 24
- 420:	21 50       	subi	r18, 0x01	; 1
- 422:	80 40       	sbci	r24, 0x00	; 0
- 424:	90 40       	sbci	r25, 0x00	; 0
- 426:	e1 f7       	brne	.-8      	; 0x420 <__EEPROM_REGION_LENGTH__+0x20>
- 428:	00 c0       	rjmp	.+0      	; 0x42a <__EEPROM_REGION_LENGTH__+0x2a>
- 42a:	00 00       	nop
-	_delay_ms(1000);
+ 3bc:	2f ef       	ldi	r18, 0xFF	; 255
+ 3be:	8d e3       	ldi	r24, 0x3D	; 61
+ 3c0:	99 e4       	ldi	r25, 0x49	; 73
+ 3c2:	21 50       	subi	r18, 0x01	; 1
+ 3c4:	80 40       	sbci	r24, 0x00	; 0
+ 3c6:	90 40       	sbci	r25, 0x00	; 0
+ 3c8:	e1 f7       	brne	.-8      	; 0x3c2 <__vector_1+0x30>
+ 3ca:	00 c0       	rjmp	.+0      	; 0x3cc <__vector_1+0x3a>
+ 3cc:	00 00       	nop
+	_delay_ms(3000);
 	// EXTI_vEnable(EXTI0);
 }
- 42c:	ff 91       	pop	r31
- 42e:	ef 91       	pop	r30
- 430:	bf 91       	pop	r27
- 432:	af 91       	pop	r26
- 434:	9f 91       	pop	r25
- 436:	8f 91       	pop	r24
- 438:	7f 91       	pop	r23
- 43a:	6f 91       	pop	r22
- 43c:	5f 91       	pop	r21
- 43e:	4f 91       	pop	r20
- 440:	3f 91       	pop	r19
- 442:	2f 91       	pop	r18
- 444:	0f 90       	pop	r0
- 446:	0f be       	out	0x3f, r0	; 63
- 448:	0f 90       	pop	r0
- 44a:	1f 90       	pop	r1
- 44c:	18 95       	reti
+ 3ce:	ff 91       	pop	r31
+ 3d0:	ef 91       	pop	r30
+ 3d2:	bf 91       	pop	r27
+ 3d4:	af 91       	pop	r26
+ 3d6:	9f 91       	pop	r25
+ 3d8:	8f 91       	pop	r24
+ 3da:	7f 91       	pop	r23
+ 3dc:	6f 91       	pop	r22
+ 3de:	5f 91       	pop	r21
+ 3e0:	4f 91       	pop	r20
+ 3e2:	3f 91       	pop	r19
+ 3e4:	2f 91       	pop	r18
+ 3e6:	0f 90       	pop	r0
+ 3e8:	0f be       	out	0x3f, r0	; 63
+ 3ea:	0f 90       	pop	r0
+ 3ec:	1f 90       	pop	r1
+ 3ee:	18 95       	reti
 
-0000044e <_exit>:
- 44e:	f8 94       	cli
+000003f0 <_exit>:
+ 3f0:	f8 94       	cli
 
-00000450 <__stop_program>:
- 450:	ff cf       	rjmp	.-2      	; 0x450 <__stop_program>
+000003f2 <__stop_program>:
+ 3f2:	ff cf       	rjmp	.-2      	; 0x3f2 <__stop_program>
