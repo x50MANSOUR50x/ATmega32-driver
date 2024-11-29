@@ -38,6 +38,7 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../7SEGMENT_program.c \
+../ADC_program.c \
 ../BUTTON_program.c \
 ../DIO_program.c \
 ../EXTI_program.c \
@@ -53,6 +54,7 @@ ASM_SRCS +=
 
 OBJS +=  \
 7SEGMENT_program.o \
+ADC_program.o \
 BUTTON_program.o \
 DIO_program.o \
 EXTI_program.o \
@@ -61,6 +63,7 @@ main.o
 
 OBJS_AS_ARGS +=  \
 7SEGMENT_program.o \
+ADC_program.o \
 BUTTON_program.o \
 DIO_program.o \
 EXTI_program.o \
@@ -69,6 +72,7 @@ main.o
 
 C_DEPS +=  \
 7SEGMENT_program.d \
+ADC_program.d \
 BUTTON_program.d \
 DIO_program.d \
 EXTI_program.d \
@@ -77,6 +81,7 @@ main.d
 
 C_DEPS_AS_ARGS +=  \
 7SEGMENT_program.d \
+ADC_program.d \
 BUTTON_program.d \
 DIO_program.d \
 EXTI_program.d \
@@ -98,6 +103,13 @@ LINKER_SCRIPT_DEP+=
 
 # AVR32/GNU C Compiler
 ./7SEGMENT_program.o: .././7SEGMENT_program.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./ADC_program.o: .././ADC_program.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

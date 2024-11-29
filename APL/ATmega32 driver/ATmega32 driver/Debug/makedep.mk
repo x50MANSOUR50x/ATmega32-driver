@@ -4,6 +4,8 @@
 
 7SEGMENT_program.c
 
+ADC_program.c
+
 BUTTON_program.c
 
 DIO_program.c

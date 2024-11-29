@@ -129,6 +129,15 @@
     <Compile Include="7SEGMENT_program.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ADC_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ADC_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ADC_registers.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="BUTTON_interface.h">
       <SubType>compile</SubType>
     </Compile>
